@@ -1,34 +1,4 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const axios = require("axios");
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// CWA API 設定
-const CWA_API_BASE_URL = "https://opendata.cwa.gov.tw/api";
-const CWA_API_KEY = process.env.CWA_API_KEY;
-
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-/**
- * 取得高雄天氣預報
- * CWA 氣象資料開放平臺 API
- * 使用「一般天氣預報-今明 36 小時天氣預報」資料集
- */
-const getKaohsiungWeather = async (req, res) => {
-  try {
-    // 檢查是否有設定 API Key
-    if (!CWA_API_KEY) {
-      return res.status(500).json({
-        error: "伺服器設定錯誤",
-        message: "請在 .env 檔案中設定 CWA_API_KEY",
-      });
-    }
 
     // 呼叫 CWA API - 一般天氣預報（36小時）
     // API 文件: https://opendata.cwa.gov.tw/dist/opendata-swagger.html
